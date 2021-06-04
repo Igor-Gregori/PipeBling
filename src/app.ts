@@ -6,8 +6,9 @@ import dotenv from "dotenv";
 import { AppError } from "./errors/AppErrors";
 import { routes } from "./routes";
 
-
 dotenv.config();
+
+import "./database";
 
 const app = express();
 
