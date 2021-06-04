@@ -104,4 +104,4 @@ dist
 .tern-port
 
 # Yarn locks
-.lock
+yarn.lock
