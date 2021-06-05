@@ -26,12 +26,20 @@ class DealsController {
   }
 
   async wonDealsByDate(request: Request, response: Response) {
-    const { date } = request.query;
+    const { date } = request.params;
     this.dealsService = new DealsService();
+
     try {
+      if (String(date).length != 10 || String(date)[4] != "-") {
+        throw new Error(
+          "Date with invalid format, follow the 'YYYY-MM-DD' template !"
+        );
+      }
+
       const wonDealsByDate = await this.dealsService.wonDealsByDate(
         String(date)
       );
+
       return response.status(200).json(wonDealsByDate);
     } catch (err) {
       throw new AppError(err.message);

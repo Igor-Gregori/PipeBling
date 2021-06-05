@@ -2,6 +2,18 @@ import { OrderModel } from "../models/OrderModel";
 import moment from "moment-timezone";
 
 class OrderRepository {
+  async getAll() {
+    const results = await OrderModel.find();
+    return results;
+  }
+
+  async getByDate(date: string) {
+    const results = await OrderModel.find({
+      orderDay: date,
+    });
+    return results;
+  }
+
   async saveTodayOrders(orderDay: any) {
     const order = new OrderModel({
       totalValue: orderDay.totalValue,

@@ -36,9 +36,39 @@ class OrdersController {
 
   async getAll(request: Request, response: Response) {
     this.ordersService = new OrdersService();
-
     try {
       const responseOrders = await this.ordersService.getAll();
+      return response.status(200).json(responseOrders);
+    } catch (err) {
+      throw new AppError(err.message);
+    }
+  }
+
+  async getAllConsolidated(request: Request, response: Response) {
+    this.orderRepository = new OrderRepository();
+
+    try {
+      const responseOrders = await this.orderRepository.getAll();
+
+      return response.status(200).json(responseOrders);
+    } catch (err) {
+      throw new AppError(err.message);
+    }
+  }
+
+  async getByDateConsolidated(request: Request, response: Response) {
+    const { date } = request.params;
+
+    this.orderRepository = new OrderRepository();
+
+    try {
+      if (String(date).length != 10 || String(date)[4] != "-") {
+        throw new Error(
+          "Date with invalid format, follow the 'YYYY-MM-DD' template !"
+        );
+      }
+
+      const responseOrders = await this.orderRepository.getByDate(date);
 
       return response.status(200).json(responseOrders);
     } catch (err) {
