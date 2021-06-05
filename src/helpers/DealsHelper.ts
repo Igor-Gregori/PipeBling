@@ -1,10 +1,23 @@
+import moment from "moment-timezone";
+
 class DealsHelper {
-  getStrDay(date: Date, isUtcFormat = false): string {
-    if (isUtcFormat) {
-      return `${date.getUTCDay()}${date.getUTCMonth()}${date.getUTCFullYear()}`;
-    } else {
-      return `${date.getDate()}${date.getMonth()}${date.getUTCFullYear()}`;
-    }
+  public getStrToday(): string {
+    const today = new Date(moment().tz(process.env.TZ).format().substr(0, 10));
+    today.setHours(0, 0, 0, 0);
+    return `${today.getUTCDay()}${today.getUTCMonth()}${today.getUTCFullYear()}`;
+  }
+
+  public getStrOfDay(strDate: string): string {
+    const date = new Date(strDate);
+    date.setHours(0, 0, 0, 0);
+    return `${date.getDate()}${date.getMonth()}${date.getUTCFullYear()}`;
+  }
+
+  public getStrOfUTCDay(strDate: string): string {
+    const date = new Date(strDate);
+    date.setHours(0, 0, 0, 0);
+    date.setDate(date.getDate() + 1);
+    return `${date.getDate()}${date.getMonth()}${date.getUTCFullYear()}`;
   }
 }
 

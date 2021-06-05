@@ -1,14 +1,17 @@
 import axios from "axios";
 import { DealsHelper } from "../helpers/DealsHelper";
-import moment from "moment-timezone";
 
 class DealsService {
   private apiUrl: string;
   private apiToken: string;
 
+  private dealsHelper: DealsHelper;
+
   constructor() {
     this.apiUrl = process.env.PIPEDRIVE_API_URL;
     this.apiToken = `&api_token=${process.env.PIPEDRIVE_API_KEY}`;
+
+    this.dealsHelper = new DealsHelper();
   }
 
   async wonDeals() {
@@ -21,21 +24,13 @@ class DealsService {
   async todayWonDeals() {
     const wonDeals = await this.wonDeals();
 
-    const dealsHelper = new DealsHelper();
-
     let todayWonDeals = [];
-
-    const today = new Date(moment().tz(process.env.TZ).format().substr(0, 10));
-    today.setHours(0, 0, 0, 0);
-    const strToday = dealsHelper.getStrDay(today, true);
+    const today = this.dealsHelper.getStrToday();
 
     wonDeals.map((deal: any) => {
       if (deal.won_time) {
-        let dealDate = new Date(deal.won_time);
-        dealDate.setHours(0, 0, 0, 0);
-        let strDealDate = dealsHelper.getStrDay(dealDate);
-
-        if (strDealDate === strToday) {
+        let dealDate = this.dealsHelper.getStrOfDay(deal.won_time);
+        if (dealDate == today) {
           todayWonDeals.push(deal);
         }
       }
@@ -44,24 +39,16 @@ class DealsService {
     return todayWonDeals;
   }
 
-  async wonDealsByDate(date: Date) {
+  async wonDealsByDate(date: string) {
     const wonDeals = await this.wonDeals();
 
-    const dealsHelper = new DealsHelper();
-
     let wonDealsByDate = [];
-
-    date.setHours(0, 0, 0, 0);
-    date.setDate(date.getDate() + 1);
-    const strToday = dealsHelper.getStrDay(date, true);
+    const day = this.dealsHelper.getStrOfUTCDay(date);
 
     wonDeals.map((deal: any) => {
       if (deal.won_time) {
-        let dealDate = new Date(deal.won_time);
-        dealDate.setHours(0, 0, 0, 0);
-        let strDealDate = dealsHelper.getStrDay(dealDate);
-
-        if (strDealDate === strToday) {
+        let dealDate = this.dealsHelper.getStrOfDay(deal.won_time);
+        if (dealDate == day) {
           wonDealsByDate.push(deal);
         }
       }

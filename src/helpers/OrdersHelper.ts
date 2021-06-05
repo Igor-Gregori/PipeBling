@@ -1,7 +1,7 @@
 import jsontoxml from "jsontoxml";
 
 class OrdersHelper {
-  getXml(deal: any) {
+  public getXml(deal: any): any {
     return jsontoxml({
       pedido: [
         {

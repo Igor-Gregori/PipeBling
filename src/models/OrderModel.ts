@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
 import moment from "moment-timezone";
+import mongoose from "mongoose";
 
 const date = moment().tz(process.env.TZ).format().substr(0, 10);
 

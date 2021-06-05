@@ -5,20 +5,23 @@ import { DealsService } from "../services/DealsService";
 import { OrdersService } from "../services/OrdersService";
 
 class OrdersController {
+  private ordersService: OrdersService;
+  private orderRepository: OrderRepository;
+  private dealsService: DealsService;
+
   async createOrders(request: Request, response: Response) {
-    const dealsService = new DealsService();
-    const ordersService = new OrdersService();
-    const orderRepository = new OrderRepository();
+    this.ordersService = new OrdersService();
+    this.orderRepository = new OrderRepository();
+    this.dealsService = new DealsService();
 
     try {
-      const todayWonDeals = await dealsService.todayWonDeals();
-
-      const todayOrdersExists = await orderRepository.todayOrdersExists();
-
+      const todayOrdersExists = await this.orderRepository.todayOrdersExists();
       if (!todayOrdersExists) {
-        const responseOrders = await ordersService.create(todayWonDeals);
+        const todayWonDeals = await this.dealsService.todayWonDeals();
 
-        const savedOrders = await orderRepository.saveTodayOrders(
+        const responseOrders = await this.ordersService.create(todayWonDeals);
+
+        const savedOrders = await this.orderRepository.saveTodayOrders(
           responseOrders
         );
 
@@ -32,9 +35,10 @@ class OrdersController {
   }
 
   async getAll(request: Request, response: Response) {
-    const ordersService = new OrdersService();
+    this.ordersService = new OrdersService();
+
     try {
-      const responseOrders = await ordersService.getAll();
+      const responseOrders = await this.ordersService.getAll();
 
       return response.status(200).json(responseOrders);
     } catch (err) {

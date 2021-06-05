@@ -1,16 +1,14 @@
 import { Request, Response } from "express";
-import { now } from "mongoose";
 import { AppError } from "../errors/AppErrors";
-import { DealsHelper } from "../helpers/DealsHelper";
 import { DealsService } from "../services/DealsService";
 
 class DealsController {
+  private dealsService: DealsService;
+
   async wonDeals(request: Request, response: Response) {
-    const dealsService = new DealsService();
-
+    this.dealsService = new DealsService();
     try {
-      const wonDeals = await dealsService.wonDeals();
-
+      const wonDeals = await this.dealsService.wonDeals();
       return response.status(200).json(wonDeals);
     } catch (err) {
       throw new AppError(err.message);
@@ -18,11 +16,9 @@ class DealsController {
   }
 
   async todayWonDeals(request: Request, response: Response) {
-    const dealsService = new DealsService();
-
+    this.dealsService = new DealsService();
     try {
-      const todayWonDeals = await dealsService.todayWonDeals();
-
+      const todayWonDeals = await this.dealsService.todayWonDeals();
       return response.status(200).json(todayWonDeals);
     } catch (err) {
       throw new AppError(err.message);
@@ -31,14 +27,11 @@ class DealsController {
 
   async wonDealsByDate(request: Request, response: Response) {
     const { date } = request.query;
-
-    const dealsService = new DealsService();
-
+    this.dealsService = new DealsService();
     try {
-      const requestDate = new Date(String(date));
-
-      const wonDealsByDate = await dealsService.wonDealsByDate(requestDate);
-
+      const wonDealsByDate = await this.dealsService.wonDealsByDate(
+        String(date)
+      );
       return response.status(200).json(wonDealsByDate);
     } catch (err) {
       throw new AppError(err.message);
