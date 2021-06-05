@@ -11,13 +11,21 @@ class OrdersController {
     const orderRepository = new OrderRepository();
 
     try {
-      const wonDeals = await dealsService.wonDeals();
-      
-      const responseOrders = await ordersService.create(wonDeals);
+      const todayWonDeals = await dealsService.todayWonDeals();
 
-      const savedOrders = await orderRepository.saveTodayOrders(responseOrders);
+      const todayOrdersExists = await orderRepository.todayOrdersExists();
 
-      return response.status(201).json(savedOrders);
+      if (!todayOrdersExists) {
+        const responseOrders = await ordersService.create(todayWonDeals);
+
+        const savedOrders = await orderRepository.saveTodayOrders(
+          responseOrders
+        );
+
+        return response.status(201).json(savedOrders);
+      } else {
+        throw new AppError("Today's orders have already been consolidated !");
+      }
     } catch (err) {
       throw new AppError(err.message);
     }

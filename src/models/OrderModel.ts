@@ -1,7 +1,10 @@
 import mongoose from "mongoose";
+import moment from "moment-timezone";
+
+const date = moment().tz(process.env.TZ).format().substr(0, 10);
 
 const OrderSchema = new mongoose.Schema({
-  orderDay: { type: Date, default: Date.now },
+  orderDay: { type: String, default: date },
   totalValue: Number,
   orders: [
     {
