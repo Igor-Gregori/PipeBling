@@ -5,7 +5,7 @@ import os from "os";
 import { resolve } from "path";
 
 const rule = new schedule.RecurrenceRule();
-rule.hour = 23;
+rule.hour = Number(process.env.WORK_IN_HOUR);
 
 // test worker every 20 seconds:
 //rule.second = 20;

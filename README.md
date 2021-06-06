@@ -61,7 +61,7 @@ O PipeBling conta com um Mini Worker para automatizar a tarefa de consolidar os 
 
 Você pode ativar/desativar a rotina alterando a constante de ambiente "WORKER_ACTIVE".
 
-Fique atento com a configuraçao de BASE_URL caso tenha problemas ao trabalhar com a rotina.
+Fique atento com a configuraçao de BASE_URL e WORK_IN_HOUR caso tenha problemas ao trabalhar com a rotina.
 
 Não se preocupe com a chamada da rotina mais de uma vez, é verificado se a consolidação já foi realizada.
 
