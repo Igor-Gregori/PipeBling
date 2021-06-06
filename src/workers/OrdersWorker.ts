@@ -11,22 +11,24 @@ rule.hour = 23;
 //rule.second = 20;
 
 schedule.scheduleJob(rule, async () => {
-  await axios
-    .post(`${process.env.BASE_URL}/orders`)
-    .then((res) => {
-      writeLog(
-        `Process carried out on the date ${new Date()}${os.EOL}` +
-          `status code: ${res.status}${os.EOL}` +
-          `status text: ${res.statusText}${os.EOL}`
-      );
-    })
-    .catch((err) => {
-      writeLog(
-        `There was a failure to process the orders in date ${new Date()}${
-          os.EOL
-        }` + `error message: ${err.response.data.message}${os.EOL}`
-      );
-    });
+  if (Boolean(process.env.WORKER_ACTIVE)) {
+    await axios
+      .post(`${process.env.BASE_URL}:${process.env.PORT}/orders`)
+      .then((res) => {
+        writeLog(
+          `Process carried out on the date ${new Date()}${os.EOL}` +
+            `status code: ${res.status}${os.EOL}` +
+            `status text: ${res.statusText}${os.EOL}`
+        );
+      })
+      .catch((err) => {
+        writeLog(
+          `There was a failure to process the orders in date ${new Date()}${
+            os.EOL
+          }` + `error message: ${err.response.data.message}${os.EOL}`
+        );
+      });
+  }
 });
 
 function writeLog(text: string) {

@@ -1,4 +1,4 @@
-<h1 align="center">:+1: PipeBling Api :green_heart:</h1>
+<h1 align="center">:computer: PipeBling Api :green_heart:</h1>
 
 <p align="center">
   <a href="https://www.linkedin.com/in/igor-gregori/">
@@ -25,6 +25,8 @@
   <a href="#page_facing_up-descrição">Descrição</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-diagrama">Diagrama</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-rotina">Rotina</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-documentacao">Documentação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#computer-instalação">Instalação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#man-Desenvolvedor">Desenvolvedor</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-licença">Licença</a>
@@ -36,7 +38,7 @@
 
 ## :page_facing_up: Descrição
 
-Essa api tem o intuito de fazer uma integração simples entre o [CRM Pipedrive](https://www.pipedrive.com/pt) e o [ERP Bling](https://www.bling.com.br/home), registrando os Deals com status ganho ("won") do [Pipedrive](https://www.pipedrive.com/pt) como pedido de vendas no [Bling](https://www.bling.com.br/home) e também fazendo a consolidação dos dados das vendas em um banco orientado a documentos [MongoDB](https://www.mongodb.com/)
+Essa api tem o intuito de fazer uma integração simples entre o [CRM Pipedrive](https://www.pipedrive.com/pt) e o [ERP Bling](https://www.bling.com.br/home), registrando os Deals com status ganho ("won") do Pipedrive como pedido de vendas no Bling e também fazendo a consolidação dos dados das vendas em um banco orientado a documentos [MongoDB](https://www.mongodb.com/).
 
 ## ✨ Tecnologias
 
@@ -50,9 +52,21 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - Para mais detalhes, veja o <kbd>[package.json](./package.json)</kbd>
 
 ## 🔶 Diagrama
+O fluxo de consolidação de dados do PipeBling funciona dando início a uma requisição dos deals com status won (negócios fechados/ganhos) para o Pipedrive. O Pipebling filtra os dels e monta uma estrura que terá somente os deals com status won do dia atual e depois realiza a inserção dos pedidos no Bling e consolida os dados com a soma de todas as ordens no MongoDB, segue um diagrama exemplificando o processo:
 
-<img src="./.github/diagramaNPS.png" alt="Diagrama da aplicação" />
+<img src="./.github/diagramaPipeBling.png" alt="Diagrama da aplicação" />
 
+## :recycle: Rotina
+O PipeBling conta com um Worker para automatizar a tarefa de consolidar os dados, utilizando a tecnologia [Node Schedule](https://www.npmjs.com/package/node-schedule), podemos definir uma rotina de processos a ser realizada na aplicação. O PipeBling já tem uma rotina padrão definida para consolidar os dados todo dia as 23:00.
+
+Você pode ativar/desativar a rotina alterando a constante de ambiente "WORKER_ACTIVE". Fique atento a configuraçao de BASE_URL caso queira trabalhar com a rotina.
+
+Não se preocupe com a chamada da rotina mais de uma vez, é verificado se a consolidação já foi realizada.
+
+## :book: Documentação
+Você pode conferir mais sobre os endpoints nessa simples e rápida documentação
+
+- [PipeBling Documentation](https://ecstatic-einstein-0d6a85.netlify.app/)
 
 ## :computer: Instalação
 
