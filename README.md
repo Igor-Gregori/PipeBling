@@ -23,7 +23,9 @@
 
 <p align="center">
   <a href="#page_facing_up-descrição">Descrição</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-solucao">Solução</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-contas">Contas de teste</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-diagrama">Diagrama</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-rotina">Rotina</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-documentacao">Documentação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
@@ -40,6 +42,15 @@
 
 Essa api tem o intuito de fazer uma integração simples entre o [CRM Pipedrive](https://www.pipedrive.com/pt) e o [ERP Bling](https://www.bling.com.br/home), registrando os Deals com status ganho ("won") do Pipedrive como pedido de vendas no Bling e também fazendo a consolidação dos dados das vendas em um banco orientado a documentos [MongoDB](https://www.mongodb.com/).
 
+## :thought_balloon: Solução
+Imagine que você venda algum tipo de serviço e gosta de usar o Pipedrive para gerenciar os seus négocios/vendas.
+
+Porém precisa emitir nota e ter alguns documentos que o sistema Bling oferece a você.
+
+O PipeBling realiza a integração dessas duas plataformas além de fazer uma consolidação de todas as vendas por dia em um banco separado.
+
+Você pode deixar o trabalho rodando automáticamente sem se preocupar em executar nada, basta configurar uma rotina de processos.
+
 ## ✨ Tecnologias
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
@@ -50,6 +61,27 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - [Mongoose](https://mongoosejs.com/)
 - [Node Schedule](https://www.npmjs.com/package/node-schedule)
 - Para mais detalhes, veja o <kbd>[package.json](./package.json)</kbd>
+
+## :email: Contas de Teste
+Todas as contas foram criadas usando um [email temporário](https://temp-mail.org/pt/) e são válidas até 20/06/2021
+Conta Pipedrive:
+	usuário: igorshop2
+	email:   xirixor512@pidhoes.com
+	senha:   123xx123
+
+Conta Bling:
+	usuário: igorshop2
+	email:   xirixor512@pidhoes.com
+	senha:   123xx123
+
+Conta MongoDB Atlas:
+	usuário: igorshop2
+	email:   xirixor512@pidhoes.com
+	senha:   123xx123
+
+Para mais informações acesse [.env](./.env)
+
+Você também pode usar as suas credencias, não se esqueça de substiuir todas as apiKeys necessárias.
 
 ## 🔶 Diagrama
 O fluxo de consolidação de dados do PipeBling funciona dando início a uma requisição dos deals com status won (negócios fechados/ganhos) para o Pipedrive. O Pipebling filtra os deals e monta uma estrura que terá somente os deals com status won do dia atual e depois organiza e insere os pedidos no Bling e consolida os dados com a soma de todas as ordens no MongoDB, segue um diagrama exemplificando o processo:
@@ -96,6 +128,7 @@ $ yarn
 $ yarn dev
 
 # O app vai está rodando na porta 3333
+# Você pode alterar ou conferir a porta acessando o arquivo .env
 ```
 Agora através de algum client rest api como o [Insomnia](https://insomnia.rest/download) você poderá trabalhar com a api.
 
