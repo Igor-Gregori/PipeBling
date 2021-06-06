@@ -52,14 +52,16 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - Para mais detalhes, veja o <kbd>[package.json](./package.json)</kbd>
 
 ## 🔶 Diagrama
-O fluxo de consolidação de dados do PipeBling funciona dando início a uma requisição dos deals com status won (negócios fechados/ganhos) para o Pipedrive. O Pipebling filtra os dels e monta uma estrura que terá somente os deals com status won do dia atual e depois realiza a inserção dos pedidos no Bling e consolida os dados com a soma de todas as ordens no MongoDB, segue um diagrama exemplificando o processo:
+O fluxo de consolidação de dados do PipeBling funciona dando início a uma requisição dos deals com status won (negócios fechados/ganhos) para o Pipedrive. O Pipebling filtra os deals e monta uma estrura que terá somente os deals com status won do dia atual e depois organiza e insere os pedidos no Bling e consolida os dados com a soma de todas as ordens no MongoDB, segue um diagrama exemplificando o processo:
 
 <img src="./.github/diagramaPipeBling.png" alt="Diagrama da aplicação" />
 
 ## :recycle: Rotina
-O PipeBling conta com um Worker para automatizar a tarefa de consolidar os dados, utilizando a tecnologia [Node Schedule](https://www.npmjs.com/package/node-schedule), podemos definir uma rotina de processos a ser realizada na aplicação. O PipeBling já tem uma rotina padrão definida para consolidar os dados todo dia as 23:00.
+O PipeBling conta com um Mini Worker para automatizar a tarefa de consolidar os dados, utilizando a tecnologia [Node Schedule](https://www.npmjs.com/package/node-schedule), podemos definir uma rotina de processos a ser realizada na aplicação. O PipeBling já tem uma rotina padrão definida para consolidar os dados todo dia as 23:00.
 
-Você pode ativar/desativar a rotina alterando a constante de ambiente "WORKER_ACTIVE". Fique atento a configuraçao de BASE_URL caso queira trabalhar com a rotina.
+Você pode ativar/desativar a rotina alterando a constante de ambiente "WORKER_ACTIVE".
+
+Fique atento com a configuraçao de BASE_URL caso tenha problemas ao trabalhar com a rotina.
 
 Não se preocupe com a chamada da rotina mais de uma vez, é verificado se a consolidação já foi realizada.
 
@@ -68,12 +70,17 @@ Você pode conferir mais sobre os endpoints nessa simples e rápida documentaç�
 
 - [PipeBling Documentation](https://ecstatic-einstein-0d6a85.netlify.app/)
 
+Você também pode importar as chamadas dos endpoints clicando no botão "Run in Insomnia"
+
+<img src="./.github/runInInsomnia.png" alt="Importar requisições para o insomnia" />
+
 ## :computer: Instalação
 
 ### Pré-requisitos
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
-[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/), Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
+[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/).
+Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
 
 ```bash
 # Clone este repositório.
@@ -90,7 +97,7 @@ $ yarn dev
 
 # O app vai está rodando na porta 3333
 ```
-Agora através de algum client rest api como o [Insomnia](https://insomnia.rest/download) você poderá trabalhar com a api
+Agora através de algum client rest api como o [Insomnia](https://insomnia.rest/download) você poderá trabalhar com a api.
 
 
 ## :man: Desenvolvedor
