@@ -9,6 +9,8 @@ import { routes } from "./routes";
 
 import "./database";
 
+import "./workers/OrdersWorker";
+
 const app = express();
 
 app.use(express.json());
