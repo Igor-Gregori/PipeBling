@@ -91,7 +91,7 @@ Conta MongoDB Atlas:
 	senha:   123xx123
 
 
-Caso aconteça algum bloqueio de conta, entre em contato ou insira seus credenciais.
+Caso aconteça algum bloqueio de conta, entre em contato ou insira suas credenciais.
 
 Sim. todas as contas possuem as mesmas credenciais.
 
