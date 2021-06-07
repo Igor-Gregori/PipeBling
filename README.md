@@ -66,21 +66,27 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 
 ## :email: Contas de Teste
-Todas as contas foram criadas usando um [email temporário](https://temp-mail.org/pt/) e são válidas até 20/06/2021
+Todas as contas foram criadas usando um [Email Temporário](https://temp-mail.org/pt/) e são válidas até 20/06/2021
+
 Conta Pipedrive:
+
 	usuário: igorshop2
 	email:   xirixor512@pidhoes.com
 	senha:   123xx123
 
+
 Conta Bling:
+
 	usuário: igorshop2
 	email:   xirixor512@pidhoes.com
 	senha:   123xx123
 
 Conta MongoDB Atlas:
+
 	usuário: igorshop2
 	email:   xirixor512@pidhoes.com
 	senha:   123xx123
+  
 
 Para mais informações acesse [.env](./.env)
 
