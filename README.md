@@ -40,13 +40,15 @@
 
 ## :page_facing_up: Descrição
 
-Essa api tem o intuito de fazer uma integração simples entre o [CRM Pipedrive](https://www.pipedrive.com/pt) e o [ERP Bling](https://www.bling.com.br/home), registrando os Deals com status ganho ("won") do Pipedrive como pedido de vendas no Bling e também fazendo a consolidação dos dados das vendas em um banco orientado a documentos [MongoDB](https://www.mongodb.com/).
+Essa API tem o intuito de realizar uma integração simples entre o [CRM Pipedrive](https://www.pipedrive.com/pt) e o [ERP Bling](https://www.bling.com.br/home), registrando os deals com status ganho (won) do Pipedrive como pedido de vendas no Bling e também fazendo a consolidação dos dados das vendas em um banco orientado a documentos [MongoDB](https://www.mongodb.com/).
 
 
 ## :thought_balloon: Solução
-Imagine que você venda algum tipo de serviço e gosta de usar o Pipedrive para gerenciar os seus négocios/vendas.
+Imagine que você venda algum tipo de serviço e gosta de usar a plataforma Pipedrive para gerenciar os seus négocios/vendas.
 
-Porém precisa emitir nota e ter alguns documentos que o sistema Bling oferece a você.
+Porém você precisa emitir nota e ter alguns documentos que o sistema Bling oferece para você.
+
+Além disso você não quer ter o trabalho de passar as vendas de um sistema para o outro manualmente.
 
 O PipeBling realiza a integração dessas duas plataformas além de fazer uma consolidação de todas as vendas por dia em um banco separado.
 
@@ -66,7 +68,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 
 ## :email: Contas de Teste
-Todas as contas foram criadas usando um [Email Temporário](https://temp-mail.org/pt/) e são válidas até 20/06/2021
+Todas as contas foram criadas usando um [Email Temporário](https://temp-mail.org/pt/) e são válidas até 20/06/2021.
 
 Conta Pipedrive:
 
@@ -86,14 +88,15 @@ Conta MongoDB Atlas:
 	usuário: igorshop2
 	email:   xirixor512@pidhoes.com
 	senha:   123xx123
-  
 
-Para mais informações acesse [.env](./.env)
+Sim. todas as contas possuem as mesmas credenciais.
 
-Você também pode usar as suas credencias, não se esqueça de substiuir todas as apiKeys necessárias.
+Para mais informações acesse [.env](./.env).
+
+Você também pode usar as suas credencias, não se esqueça de substiuir todas as apiKeys necessárias no arquivo [.env](./.env).
 
 
-## :large_orange_diamond: Diagrama
+## :large_orange_diamond: Diagrama do processo de consolidação
 O fluxo de consolidação de dados do PipeBling funciona dando início a uma requisição dos deals com status won (negócios fechados/ganhos) para o Pipedrive. O Pipebling filtra os deals e monta uma estrura que terá somente os deals com status won do dia atual e depois organiza e insere os como pedidos de venda no Bling e consolida os dados com a soma de todas as ordens no MongoDB, segue um diagrama exemplificando o processo:
 
 <img src="./.github/diagramaPipeBling.png" alt="Diagrama da aplicação" />
@@ -102,21 +105,23 @@ O fluxo de consolidação de dados do PipeBling funciona dando início a uma req
 ## :recycle: Rotina
 O PipeBling conta com um Mini Worker para automatizar a tarefa de consolidar os dados, utilizando a tecnologia [Node Schedule](https://www.npmjs.com/package/node-schedule), podemos definir uma rotina de processos a ser realizada na aplicação. O PipeBling já tem uma rotina padrão definida para consolidar os dados todo dia ás 23:00.
 
-Você pode ativar/desativar a rotina alterando a variável de ambiente "WORKER_ACTIVE".
+Você pode ativar/desativar a rotina alterando a variável de ambiente "WORKER_ACTIVE" no arquivo [.env](./.env) .
 
-Fique atento com a configuraçao de BASE_URL e WORK_IN_HOUR caso tenha problemas ao trabalhar com a rotina.
+Fique atento com a configuração de BASE_URL e WORK_IN_HOUR caso tenha problemas ao trabalhar com a rotina.
 
-Não se preocupe com a chamada da rotina mais de uma vez, é verificado se a consolidação já foi realizada.
+Não se preocupe com a chamada do processo mais de uma vez, é verificado se a consolidação já foi realizada.
 
 
 ## :book: Documentação
-Você pode conferir mais sobre os endpoints nessa simples e rápida documentação
+Você pode conferir mais sobre os endpoints nessa simples e rápida documentação:
 
 - [PipeBling Api Documentation](https://ecstatic-einstein-0d6a85.netlify.app/)
 
 Você também pode importar as chamadas dos endpoints clicando no botão "Run in Insomnia".
 
 <img src="./.github/runInInsomnia.png" alt="Importar requisições para o insomnia" />
+
+Caso tenha problemas verifique as variáveis de ambiente dentro do próprio Insomnia .
 
 
 ## :computer: Instalação
@@ -125,13 +130,14 @@ Você também pode importar as chamadas dos endpoints clicando no botão "Run in
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
 [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/).
-Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
+
+Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/) ou o [Sublime Text](https://www.sublimetext.com/)
 
 ```bash
 # Clone este repositório.
 $ git clone https://github.com/Igor-Gregori/PipeBling
 
-# Vá para a pasta Net-Promoter-Score-NLW
+# Vá para a pasta do projeto
 $ cd PipeBling
 
 # Instale as dependências
@@ -140,10 +146,10 @@ $ yarn
 # Execute aplicação
 $ yarn dev
 
-# O app vai está rodando na porta 3333
+# O app estará rodando na porta 3333
 # Você pode alterar ou conferir a porta acessando o arquivo .env
 ```
-Agora através de algum client rest api como o [Insomnia](https://insomnia.rest/download) ou o [Postman](https://www.postman.com/) você poderá trabalhar com a api.
+Agora através de algum client rest api como o [Insomnia](https://insomnia.rest/download) ou o [Postman](https://www.postman.com/) você poderá se divertir com a api.
 
 
 ## :man: Desenvolvedor
@@ -154,12 +160,15 @@ Agora através de algum client rest api como o [Insomnia](https://insomnia.rest/
  <sub><b>Igor Gregori</b></sub>
 </a>
 
-Desenvolvido por <b>Igor Gregori</b> :metal::satisfied::+1: Entre em contato! :speech_balloon:
+Desenvolvido por <b>Igor Gregori</b> :metal::satisfied::+1:
+Entre em contato! :speech_balloon:
+<a href="https://mailto:igsilvacarlos@gmail.com">igsilvacarlos@gmail.com</a>
 
 <a href="https://www.linkedin.com/in/igor-gregori/">
   <img alt="Linkedin" src="https://img.shields.io/badge/-Igor%20Gregori-0e76a8?label=Linkedin&logo=linkedin&style=flat-square" >
 </a>
 
+
 ## :closed_book: Licença
 
-This project is [MIT](https://github.com/Igor-Gregori/moveit/blob/main/LICENSE) licensed.
+Este projeto é licenciado pelo [MIT](https://github.com/Igor-Gregori/moveit/blob/main/LICENSE). / This project is [MIT](https://github.com/Igor-Gregori/moveit/blob/main/LICENSE) licensed.
