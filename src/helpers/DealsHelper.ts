@@ -2,22 +2,21 @@ import moment from "moment-timezone";
 
 class DealsHelper {
   public getStrToday(): string {
-    const today = new Date(moment().tz(process.env.TZ).format().substr(0, 10));
-    today.setDate(today.getDate() + 1);
-    return `${today.getDate()}${today.getMonth()}${today.getUTCFullYear()}`;
+    const today = new Date(new Date().toUTCString());
+    return `${today.getDate()}${today.getMonth()}${today.getFullYear()}`;
   }
 
   public getStrOfDay(strDate: string): string {
-    const date = new Date(strDate);
-    date.setHours(0, 0, 0, 0);
-    return `${date.getDate()}${date.getMonth()}${date.getUTCFullYear()}`;
+    const date = new Date(moment.utc(strDate).tz(process.env.TZ).format());
+    return `${date.getDate()}${date.getMonth()}${date.getFullYear()}`;
   }
 
-  public getStrOfUTCDay(strDate: string): string {
+  public getStrOfUTCDay(strDate: string): string {    
     const date = new Date(strDate);
     date.setHours(0, 0, 0, 0);
     date.setDate(date.getDate() + 1);
     return `${date.getDate()}${date.getMonth()}${date.getUTCFullYear()}`;
+    
   }
 }
 
