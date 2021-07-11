@@ -16,8 +16,8 @@ class DealsHelper {
     date.setHours(0, 0, 0, 0);
     date.setDate(date.getDate() + 1);
     return `${date.getDate()}${date.getMonth()}${date.getUTCFullYear()}`;
-    
   }
+
 }
 
 export { DealsHelper };
